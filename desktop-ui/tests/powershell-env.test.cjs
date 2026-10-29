@@ -1,0 +1,2 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),{powershellEnv}=require('../electron/powershell-env.cjs');
+test('Windows PowerShell discovers its own modules and keeps other environment variables',()=>{const source={PSModulePath:'incompatible',pSmOdUlEpAtH:'also incompatible',PATH:'system',TEMP:'scratch'};assert.deepEqual(powershellEnv(source),{PATH:'system',TEMP:'scratch'});assert.equal(source.PSModulePath,'incompatible');});

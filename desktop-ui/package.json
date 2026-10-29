@@ -1,0 +1,68 @@
+{
+  "name": "nexo-control",
+  "version": "0.7.4-dev.1",
+  "private": true,
+  "description": "Nexo desktop control panel",
+  "author": "Nexo",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "build": "vite build",
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "package": "node scripts/prepare-package.cjs && electron-builder --dir"
+  },
+  "dependencies": {
+    "electron-updater": "6.8.11"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "terser": "5.51.2",
+    "three": "0.184.0",
+    "vite": "8.3.5"
+  },
+  "build": {
+    "appId": "local.nexo.control",
+    "productName": "Nexo",
+    "directories": {
+      "output": "release-0.7"
+    },
+    "files": [
+      {
+        "from": "electron-compiled",
+        "to": "electron",
+        "filter": [
+          "**/*.cjs"
+        ]
+      },
+      "defaults.json",
+      "social-links.json",
+      "build-channel.json",
+      "assets/**/*",
+      "dist/**/*",
+      "package.json",
+      "skin-catalog.json"
+    ],
+    "win": {
+      "target": "dir",
+      "executableName": "Nexo",
+      "signExecutable": false,
+      "icon": "assets/nexo.ico"
+    },
+    "asar": true,
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableCookieEncryption": true,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true
+    }
+  },
+  "allowScripts": {
+    "electron@45.0.0": true
+  }
+}

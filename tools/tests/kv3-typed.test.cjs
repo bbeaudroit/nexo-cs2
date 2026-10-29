@@ -1,0 +1,2 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');const {parseKV3}=require('../kv3.cjs');
+test('typed strings retain allowlisted type tags without evaluation',()=>{const d=parseKV3('{model=resource_name:"a/model.vmdl" event=soundevent:"Weapon.Fire"}');assert.deepEqual(d.model,{type:'resource_name',value:'a/model.vmdl'});assert.deepEqual(d.event,{type:'soundevent',value:'Weapon.Fire'});for(const value of ['evil:"x"','resource_name:123','soundevent:{x=1}'])assert.throws(()=>parseKV3('{x='+value+'}'));});

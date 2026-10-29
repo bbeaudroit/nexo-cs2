@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>Nexo</AssemblyName>
+    <Version>0.7.3</Version>
+    <Product>Nexo</Product>
+  </PropertyGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App" /></ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="Nexo.InputChecks" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="WebRadarPage.html" LogicalName="Nexo.WebRadarPage.html" /><EmbeddedResource Include="WebRadarMath.mjs" LogicalName="Nexo.WebRadarMath.mjs" /></ItemGroup>
+  <PropertyGroup Condition="'$(NexoCommercial)'=='true'"><DefineConstants>$(DefineConstants);NEXO_COMMERCIAL</DefineConstants></PropertyGroup>
+  <ItemGroup Condition="'$(NexoCommercial)'=='true'"><EmbeddedResource Include="$(NexoPublicKeyFile)" LogicalName="Nexo.LicensePublicKey.pem" /></ItemGroup>
+  <Target Name="CheckCommercialKey" BeforeTargets="PrepareForBuild" Condition="'$(NexoCommercial)'=='true'"><Error Condition="!Exists('$(NexoPublicKeyFile)')" Text="A commercial build requires NexoPublicKeyFile (public P-256 PEM only)." /></Target>
+  <ItemGroup><EmbeddedResource Include="../desktop-ui/skin-catalog.json" LogicalName="Nexo.SkinCatalog.json" /></ItemGroup>
+</Project>
+
+

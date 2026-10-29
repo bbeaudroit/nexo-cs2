@@ -1,0 +1,109 @@
+{
+  "directories": {
+    "output": "../release/0.7.4-dev.1"
+  },
+  "artifactName": "Nexo-Setup-${version}.${ext}",
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "signExecutable": false,
+    "executableName": "Nexo",
+    "icon": "assets/nexo.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": false,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "deleteAppDataOnUninstall": false,
+    "runAfterFinish": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "assets/nexo.ico",
+    "uninstallerIcon": "assets/nexo.ico",
+    "include": "installer/custom.nsh",
+    "installerSidebar": "assets/installer-sidebar.bmp",
+    "uninstallerSidebar": "assets/installer-sidebar.bmp",
+    "installerHeader": "assets/installer-header.bmp"
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "bbeaudroit",
+      "repo": "nexo-releases",
+      "releaseType": "release"
+    }
+  ],
+  "extraFiles": [
+    {
+      "from": "../release-stage/engine-v7",
+      "to": "engine-v7",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "../release-stage/dumps",
+      "to": "dumps",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "../release-stage/tools",
+      "to": "tools",
+      "filter": [
+        "**/*"
+      ]
+    },
+    {
+      "from": "../release-stage/nexo-install.json",
+      "to": "nexo-install.json"
+    },
+    {
+      "from": "../release-stage/Preparar-Modelo.ps1",
+      "to": "Preparar-Modelo.ps1"
+    },
+    {
+      "from": "../release-stage/Preparar-Mapas.ps1",
+      "to": "Preparar-Mapas.ps1"
+    },
+    {
+      "from": "../release-stage/FIRST-START.txt",
+      "to": "FIRST-START.txt"
+    }
+  ],
+  "appId": "local.nexo.control",
+  "productName": "Nexo",
+  "files": [
+    {
+      "from": "electron-compiled",
+      "to": "electron",
+      "filter": [
+        "**/*.cjs"
+      ]
+    },
+    "defaults.json",
+    "social-links.json",
+    "build-channel.json",
+    "assets/**/*",
+    "dist/**/*",
+    "package.json",
+    "skin-catalog.json"
+  ],
+  "asar": true,
+  "electronFuses": {
+    "runAsNode": false,
+    "enableNodeOptionsEnvironmentVariable": false,
+    "enableNodeCliInspectArguments": false,
+    "enableCookieEncryption": true,
+    "enableEmbeddedAsarIntegrityValidation": true,
+    "onlyLoadAppFromAsar": true
+  }
+}

@@ -1,0 +1,10 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const root=path.resolve(__dirname,'..'),version=require('../desktop-ui/package.json').version,folder=path.join(root,'release',version),app=path.join(folder,'win-unpacked');
+for(const name of ['Nexo.exe','resources/app.asar','resources/app-update.yml','engine-v7/Nexo.exe','engine-v7/coreclr.dll','engine-v7/Microsoft.AspNetCore.dll','dumps/manual-01/info.json','dumps/manual-01/offsets.json','dumps/manual-01/client_dll.json','nexo-install.json','Preparar-Modelo.ps1','Preparar-Mapas.ps1'])if(!fs.existsSync(path.join(app,name)))throw Error('Missing release resource: '+name);
+for(const name of ['esp-settings.json','configs','grenades.json','radar-gsi-token.txt','.env','local-assets'])if(fs.existsSync(path.join(app,name)))throw Error('Private or locally extracted resource in release: '+name);
+const marker=JSON.parse(fs.readFileSync(path.join(app,'nexo-install.json'),'utf8').replace(/^\uFEFF/,''));if(marker.format!==1||marker.channel!=='stable')throw Error('Invalid install marker');
+const installer=path.join(folder,`Nexo-Setup-${version}.exe`),bytes=fs.readFileSync(installer),sha256=crypto.createHash('sha256').update(bytes).digest('hex'),sha512=crypto.createHash('sha512').update(bytes).digest('base64');
+const yaml=fs.readFileSync(path.join(folder,'latest.yml'),'utf8');if(!yaml.includes(sha512)||!yaml.includes(path.basename(installer)))throw Error('Update metadata does not match installer');
+fs.writeFileSync(path.join(folder,'SHA256SUMS.txt'),sha256+'  '+path.basename(installer)+'\n');
+fs.writeFileSync(path.join(folder,'release-manifest.json'),JSON.stringify({version,installer:path.basename(installer),bytes:bytes.length,sha256,selfContainedEngine:true,personalSettingsIncluded:false,extractedGameAssetsIncluded:false,authenticodeSigned:false,autoUpdates:'NSIS + GitHub',backup:'previous program files; user CFGs outside installation'},null,2)+'\n');
+console.log(JSON.stringify({version,bytes:bytes.length,sha256,verified:true}));

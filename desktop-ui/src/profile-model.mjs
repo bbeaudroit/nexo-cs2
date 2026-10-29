@@ -1,0 +1,3 @@
+export function weaponGroup(id){if([7,8,10,13,16,39,60].includes(id))return'Rifles';if([17,19,23,24,26,33,34].includes(id))return'SMG';if([1,2,3,4,30,32,36,61,63,64].includes(id))return'Pistolas';if([9,11,38,40].includes(id))return'Francotiradores';if([25,27,29,35].includes(id))return'Escopetas';if([14,28].includes(id))return'Pesadas';return'Otras';}
+export function getProfile(settings,key,defaults){const profiles=settings.AimProfiles||{};const inherited=key.startsWith('arma:')?profiles[weaponGroup(Number(key.slice(5)))]:null;return{...defaults,...(profiles[key]??inherited??{})};}
+export function activeProfileKey(settings,weapon){return settings.AimProfiles?.['arma:'+weapon]?'arma:'+weapon:weaponGroup(weapon);}

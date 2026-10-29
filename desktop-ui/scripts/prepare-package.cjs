@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path');const {minify}=require('terser');
+const siteCheck=path.resolve(__dirname,'../../sites/nexo-vercel/scripts/sync-menu-site.mjs');
+if(fs.existsSync(siteCheck))require('node:child_process').execFileSync(process.execPath,[siteCheck,'--check'],{stdio:'inherit'});
+(async()=>{const base=path.resolve(__dirname,'..'),dir=path.join(base,'electron-compiled');fs.mkdirSync(dir,{recursive:true});for(const name of fs.readdirSync(path.join(base,'electron'))){if(!name.endsWith('.cjs'))continue;const result=await minify(fs.readFileSync(path.join(base,'electron',name),'utf8'),{compress:{passes:2},mangle:{toplevel:true},format:{comments:false},sourceMap:false});fs.writeFileSync(path.join(dir,name),result.code);}console.log('Electron scripts minified; no source maps or server secrets included.');})();

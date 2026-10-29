@@ -1,0 +1,2 @@
+import catalog from '../skin-catalog.json' with {type:'json'};
+export function chooseSkin(loadout,item,paint){const weapon=catalog.weapons.find(w=>w.id===item);if(!weapon||!Number.isInteger(paint)||paint!==0&&!weapon.paints.some(p=>p.id===paint))throw Error('Invalid weapon/paint pair');const weapons={...(loadout?.weapons||{})};if(paint===0)delete weapons[item];else weapons[item]=paint;return {version:1,weapons};}

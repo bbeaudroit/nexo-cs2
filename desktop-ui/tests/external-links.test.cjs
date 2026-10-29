@@ -1,0 +1,4 @@
+const{test}=require('node:test'),assert=require('node:assert/strict');
+const{resolveExternal}=require('../electron/external-links.cjs');
+test('external links resolve only the two bundled HTTPS destinations',()=>{assert.equal(resolveExternal('website'),'https://nexo-two-beige.vercel.app/');assert.equal(resolveExternal('discord'),'https://discord.gg/7q9NAfYKTJ');for(const value of ['https://evil.example','file:///C:/Windows','cmd.exe','website?url=evil','',null])assert.throws(()=>resolveExternal(value));});
+test('malformed configured links cannot become an external protocol launch',()=>{assert.throws(()=>resolveExternal('website',{website:'javascript:alert(1)'}));assert.throws(()=>resolveExternal('website',{website:'http://example.com'}));assert.throws(()=>resolveExternal('discord',{discord:'https://discord.com@evil.example/invite/a'}));});

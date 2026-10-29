@@ -1,0 +1,2 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');
+test('choose compatible skin or Original without mutating the loaded CFG',async()=>{const {chooseSkin}=await import('../src/skin-selection.mjs');const original={version:1,weapons:{7:180}};assert.deepEqual(chooseSkin(original,9,344).weapons,{7:180,9:344});assert.deepEqual(chooseSkin(original,7,0).weapons,{});assert.deepEqual(original.weapons,{7:180});assert.throws(()=>chooseSkin(original,7,344));assert.throws(()=>chooseSkin(original,500,38));});

@@ -1,0 +1,240 @@
+#stacking-nav-root {
+  margin-left: auto;
+}
+.header-inner nav.stacking-navbar {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 8px;
+  margin-left: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+.stacking-toggle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  color: var(--violet-dark);
+  background: #f6f2fa;
+  transition:
+    background 180ms,
+    border-color 180ms;
+}
+.stacking-toggle:hover,
+.stacking-toggle[aria-expanded="true"] {
+  background: var(--soft);
+  border-color: #cfb5e5;
+}
+.stacking-toggle svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.7;
+}
+.stacking-items {
+  position: relative;
+  height: 42px;
+  flex-shrink: 0;
+}
+.stacking-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 118px;
+}
+.header-inner nav.stacking-navbar .stacking-item a {
+  display: flex;
+  height: 42px;
+  width: 100%;
+  border: 1px solid #e4d9ee;
+  border-radius: 24px;
+  padding: 10px 12px;
+  gap: 7px;
+  line-height: 1;
+  background: #f6f2faee;
+  color: #5c4b6d;
+  box-shadow: 0 2px 4px #43225e06;
+  white-space: nowrap;
+}
+.stacking-item a svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.7;
+}
+.header-inner nav.stacking-navbar .stacking-item a:hover {
+  color: #fff;
+  background: var(--violet-dark);
+  border-color: var(--violet-dark);
+}
+.header-inner nav.stacking-navbar .stacking-item a[aria-current="page"] {
+  color: var(--violet-dark);
+  background: #e9d9f7;
+  border-color: #cfb5e5;
+}
+.stacking-navbar[data-expanded="false"] .stacking-item:not(:first-child) a {
+  pointer-events: none;
+}
+.header-download svg {
+  display: inline-block;
+}
+
+body.intro-active {
+  overflow: hidden;
+}
+.nexo-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  background: #f0edf4;
+}
+.intro-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-18px);
+}
+.intro-visual {
+  position: relative;
+  width: min(440px, calc(100vw - 32px));
+  height: min(400px, 65svh);
+}
+.intro-glass {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+}
+.intro-glass.is-ready {
+  opacity: 1;
+}
+.intro-static-logo {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 126px;
+  height: 126px;
+}
+.intro-wordmark {
+  margin-top: -90px;
+  font-family: Jost, Arial, sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -2.6px;
+  line-height: 1.4;
+  color: var(--ink);
+  position: relative;
+}
+.intro-skip {
+  position: absolute;
+  right: max(28px, env(safe-area-inset-right));
+  bottom: max(28px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  background: #f7f4fb;
+  color: var(--violet-dark);
+}
+.intro-skip:hover {
+  background: var(--soft);
+  border-color: #cfb5e5;
+}
+.intro-skip svg {
+  width: 19px;
+  height: 19px;
+}
+#main:focus {
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .header-inner nav.stacking-navbar {
+    position: static;
+    gap: 0;
+  }
+  .stacking-items {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 18px;
+    right: 18px;
+    width: auto !important;
+    height: auto;
+    display: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    padding: 8px;
+    border: 1px solid var(--edge);
+    border-radius: 32px;
+    background: #fffffff5;
+    box-shadow: 0 12px 32px #4b2f6920;
+    backdrop-filter: blur(18px);
+  }
+  .stacking-items[data-open="true"] {
+    display: grid;
+  }
+  .stacking-item {
+    position: relative;
+    width: auto;
+    /* Desktop stack offsets must never spill out while a viewport is resizing. */
+    transform: none !important;
+  }
+  .header-inner nav.stacking-navbar .stacking-item a {
+    padding: 9px 5px;
+    font-size: 12px;
+    height: 40px;
+    gap: 5px;
+  }
+  .stacking-item a svg {
+    width: 13px;
+    height: 13px;
+  }
+  .header-inner nav.stacking-navbar .stacking-item a[href="/#menu"] {
+    display: flex;
+  }
+  .stacking-navbar[data-expanded="false"] .stacking-item a {
+    pointer-events: none;
+  }
+  .header-download svg {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+  }
+}
+@media (max-width: 450px) {
+  .header-download .download-label {
+    display: none;
+  }
+  .header-download {
+    width: 40px;
+    height: 40px;
+    min-height: 40px !important;
+    padding: 0 !important;
+    border-radius: 50%;
+  }
+  .intro-skip {
+    right: 22px;
+    bottom: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-identity {
+    transform: none;
+  }
+  .stacking-toggle,
+  .stacking-item a {
+    transition: none;
+  }
+}

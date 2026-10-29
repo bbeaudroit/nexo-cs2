@@ -1,0 +1,28 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+function verifyLease(ticket,publicKey,device,now=Math.floor(Date.now()/1000)){
+ if(typeof ticket!=='string'||ticket.length>4096)throw Error('Sesión de licencia inválida');const parts=ticket.split('.');if(parts.length!==2||!parts.every(p=>/^[\w-]+$/.test(p)))throw Error('Firma de licencia inválida');
+ if(!crypto.verify('sha256',Buffer.from(parts[0]),{key:publicKey,dsaEncoding:'ieee-p1363'},Buffer.from(parts[1],'base64url')))throw Error('Firma de licencia inválida');const p=JSON.parse(Buffer.from(parts[0],'base64url'));
+ if(p.v!==1||p.iss!=='nexo-licensing'||p.aud!=='nexo-desktop'||p.device!==device||![p.iat,p.exp,p.licenseExpires].every(Number.isSafeInteger)||p.iat>now+30||p.exp<=now||p.exp<=p.iat||p.exp-p.iat>600||p.exp>p.licenseExpires)throw Error('Sesión de licencia vencida o no válida para esta instalación');return p;
+}
+function paymentUrl(value){const u=new URL(value);if(u.protocol!=='https:'||u.hostname!=='nowpayments.io'||u.port||u.username||u.password||u.pathname!=='/payment/'||!u.searchParams.get('iid'))throw Error('Dirección de pago no permitida');return u.toString();}
+class LicenseClient{
+ constructor({config,userData,safeStorage,deviceId}){if(!['owner','commercial'].includes(config.channel))throw Error('Canal de distribución inválido');this.config=config;this.dir=userData;this.storage=safeStorage;this.vault={deviceId:deviceId||crypto.randomBytes(32).toString('hex'),orders:{}};this.file=path.join(userData,'license.vault');this.ticketFile=path.join(userData,'session.ticket');this.lastError='';
+  if(config.url){const u=new URL(config.url);if(u.protocol!=='https:'||u.username||u.password||u.search||u.hash)throw Error('El servidor de licencias requiere HTTPS');this.base=u.origin;}
+  try{if(fs.existsSync(this.file)&&safeStorage.isEncryptionAvailable()){const data=JSON.parse(safeStorage.decryptString(fs.readFileSync(this.file)));if(/^[a-f0-9]{64}$/.test(data.deviceId))this.vault=data;}}catch{this.lastError='No se pudo recuperar la licencia guardada';}
+  if(deviceId){if(!/^[a-f0-9]{64}$/.test(deviceId))throw Error('Identidad nativa inválida');this.vault.deviceId=deviceId;}
+ }
+ get configured(){return!!(this.base&&this.config.publicKey);}
+ save(){if(!this.storage.isEncryptionAvailable())throw Error('Windows no pudo proteger la licencia local');fs.mkdirSync(this.dir,{recursive:true});const temporary=this.file+'.tmp';fs.writeFileSync(temporary,this.storage.encryptString(JSON.stringify(this.vault)));fs.renameSync(temporary,this.file);}
+ payload(){try{return verifyLease(fs.readFileSync(this.ticketFile,'utf8'),this.config.publicKey,this.vault.deviceId);}catch{return null;}}
+ status(){const p=this.configured?this.payload():null;const orders=Object.keys(this.vault.orders||{});return{channel:this.config.channel,configured:this.configured,status:this.config.channel==='owner'?'owner':p?'active':'inactive',expiresAt:p?.licenseExpires,error:this.lastError,pendingOrder:orders.length?{id:orders.at(-1)}:null};}
+ allowed(){return this.config.channel==='owner'||!!this.payload();}
+ async request(route,body,secret){if(!this.configured)throw Error('Servidor de licencias sin configurar');const response=await fetch(this.base+route,{method:body?'POST':'GET',headers:{'content-type':'application/json',...(secret?{authorization:'Bearer '+secret}:{})},body:body?JSON.stringify(body):undefined,redirect:'error',signal:AbortSignal.timeout(10000)});if(!response.ok){let error;try{error=(await response.json()).error;}catch{}throw Error(error||'El servidor de licencias no está disponible');}return response.json();}
+ async activate(key){if(typeof key!=='string'||key.length>160)throw Error('Clave inválida');if(!this.storage.isEncryptionAvailable())throw Error('Windows no pudo proteger la licencia local');const result=await this.request('/v1/activate',{key:key.trim(),deviceId:this.vault.deviceId});verifyLease(result.ticket,this.config.publicKey,this.vault.deviceId);this.vault.key=key.trim();this.save();this.writeTicket(result.ticket);this.lastError='';return this.status();}
+ writeTicket(ticket){const temporary=this.ticketFile+'.tmp';fs.writeFileSync(temporary,ticket);fs.renameSync(temporary,this.ticketFile);}
+ async renew(){if(!this.configured||!this.vault.key)return this.status();try{const result=await this.request('/v1/renew',{key:this.vault.key,deviceId:this.vault.deviceId});verifyLease(result.ticket,this.config.publicKey,this.vault.deviceId);this.writeTicket(result.ticket);this.lastError='';}catch(e){this.lastError=e.message;}return this.status();}
+ async checkout(coin,acceptedRisk){if(!this.storage.isEncryptionAvailable())throw Error('Windows no pudo proteger la orden');this.save();const order=await this.request('/v1/orders',{coin,acceptedRisk});const url=paymentUrl(order.paymentUrl);if(!/^[a-f0-9]{32}$/.test(order.id)||typeof order.secret!=='string'||order.secret.length>128)throw Error('Orden inválida');this.vault.orders={...(this.vault.orders||{}),[order.id]:{secret:order.secret,url}};const ids=Object.keys(this.vault.orders);for(const id of ids.slice(0,-10))delete this.vault.orders[id];this.save();return{id:order.id,status:order.status};}
+ async order(id){const order=this.vault.orders?.[id];if(!order)throw Error('Orden no disponible en esta instalación');return this.request('/v1/orders/'+encodeURIComponent(id),undefined,order.secret);}
+ payment(id){const order=this.vault.orders?.[id];if(!order)throw Error('Orden no disponible');return paymentUrl(order.url);}
+ engineEnv(){return{NEXO_LICENSE_PATH:this.ticketFile};}
+}
+module.exports={LicenseClient,verifyLease,paymentUrl};

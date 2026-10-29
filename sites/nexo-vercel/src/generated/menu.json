@@ -1,0 +1,692 @@
+{
+  "version": "0.7.4-dev.1",
+  "sourceHash": "b2afe0c30431ce734bb8369b6b66e82916cc3f2edc7ae66d4fb506e023c6edcc",
+  "modules": [
+    {
+      "id": "visuals",
+      "title": "Visuals",
+      "tabs": [
+        {
+          "id": "players",
+          "title": "Players",
+          "controls": [
+            {
+              "key": "Enabled",
+              "label": "Enable visuals"
+            },
+            {
+              "key": "ShowTeammates",
+              "label": "Show teammates"
+            },
+            {
+              "key": "Boxes",
+              "label": "Boxes"
+            },
+            {
+              "key": "Skeleton",
+              "label": "Skeleton"
+            },
+            {
+              "key": "HeadCircle",
+              "label": "Head circle"
+            },
+            {
+              "key": "Names",
+              "label": "Name"
+            },
+            {
+              "key": "Weapons",
+              "label": "Weapon & ammo"
+            },
+            {
+              "key": "WeaponIcons",
+              "label": "Weapon icon"
+            },
+            {
+              "key": "Distance",
+              "label": "Distance"
+            },
+            {
+              "key": "EspMaxDistance",
+              "label": "Max distance"
+            }
+          ]
+        },
+        {
+          "id": "layout",
+          "title": "Layout",
+          "controls": []
+        },
+        {
+          "id": "chams",
+          "title": "Chams",
+          "controls": [
+            {
+              "key": "ChamsEnabled",
+              "label": "External SAS silhouette"
+            },
+            {
+              "key": "ChamsOpacity",
+              "label": "Fill opacity"
+            },
+            {
+              "key": "ChamsOutline",
+              "label": "Contour"
+            },
+            {
+              "key": "ChamsOutlineOpacity",
+              "label": "Contour opacity"
+            },
+            {
+              "key": "ChamsOutlineWidth",
+              "label": "Contour width"
+            },
+            {
+              "key": "ChamsDistance",
+              "label": "Max distance"
+            }
+          ]
+        },
+        {
+          "id": "history",
+          "title": "History",
+          "controls": [
+            {
+              "key": "ChamsHistoryEnabled",
+              "label": "Historical silhouette"
+            },
+            {
+              "key": "ChamsHistoryDelay",
+              "label": "Pose delay"
+            },
+            {
+              "key": "ChamsHistoryOpacity",
+              "label": "History opacity"
+            }
+          ]
+        },
+        {
+          "id": "bars",
+          "title": "Bars",
+          "controls": [
+            {
+              "key": "Health",
+              "label": "Health"
+            },
+            {
+              "key": "Armor",
+              "label": "Armor"
+            },
+            {
+              "key": "LabelBackground",
+              "label": "Label backgrounds"
+            },
+            {
+              "key": "LabelOpacity",
+              "label": "Opacity"
+            },
+            {
+              "key": "FontSize",
+              "label": "Text size"
+            }
+          ]
+        },
+        {
+          "id": "style",
+          "title": "Style",
+          "controls": [
+            {
+              "key": "CornerBoxes",
+              "label": "Corner boxes"
+            },
+            {
+              "key": "GlowEnabled",
+              "label": "Glow"
+            },
+            {
+              "key": "GlowStrength",
+              "label": "Intensity"
+            },
+            {
+              "key": "GlowRadius",
+              "label": "Radius"
+            },
+            {
+              "key": "Thickness",
+              "label": "Line width"
+            }
+          ]
+        },
+        {
+          "id": "sound",
+          "title": "Sound",
+          "controls": [
+            {
+              "key": "SoundEsp",
+              "label": "Shot markers"
+            },
+            {
+              "key": "SoundTime",
+              "label": "Duration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aim",
+      "title": "Aimbot",
+      "tabs": [
+        {
+          "id": "general",
+          "title": "General",
+          "controls": [
+            {
+              "key": "Enabled",
+              "label": "Enable aimbot"
+            },
+            {
+              "key": "Key",
+              "label": "Aim key"
+            },
+            {
+              "key": "Fov",
+              "label": "FOV"
+            },
+            {
+              "key": "Smooth",
+              "label": "Smoothing"
+            },
+            {
+              "key": "MaxDistance",
+              "label": "Max distance"
+            },
+            {
+              "key": "Linear",
+              "label": "Linear smoothing"
+            },
+            {
+              "key": "Closest",
+              "label": "Closest hitbox"
+            },
+            {
+              "key": "Hitboxes",
+              "label": "Hitboxes"
+            }
+          ]
+        },
+        {
+          "id": "fov",
+          "title": "FOV",
+          "controls": [
+            {
+              "key": "ShowFov",
+              "label": "Show FOV"
+            },
+            {
+              "key": "FovColor",
+              "label": "FOV color"
+            },
+            {
+              "key": "FollowRecoil",
+              "label": "Follow recoil"
+            },
+            {
+              "key": "RecoilColor",
+              "label": "Recoil FOV color"
+            }
+          ]
+        },
+        {
+          "id": "recoil",
+          "title": "Recoil",
+          "controls": [
+            {
+              "key": "Rcs",
+              "label": "Recoil control"
+            },
+            {
+              "key": "RecoilX",
+              "label": "Horizontal"
+            },
+            {
+              "key": "RecoilY",
+              "label": "Vertical"
+            }
+          ]
+        },
+        {
+          "id": "input",
+          "title": "Input",
+          "controls": [
+            {
+              "key": "AutoSensitivity",
+              "label": "Auto-detect sensitivity"
+            },
+            {
+              "key": "Sensitivity",
+              "label": "Manual sensitivity / fallback"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trigger",
+      "title": "Trigger",
+      "tabs": [
+        {
+          "id": "shot",
+          "title": "Firing",
+          "controls": [
+            {
+              "key": "Trigger",
+              "label": "Enable trigger"
+            },
+            {
+              "key": "TriggerAlways",
+              "label": "Always active"
+            },
+            {
+              "key": "TriggerKey",
+              "label": "Trigger key"
+            },
+            {
+              "key": "ShootDelay",
+              "label": "Shot delay"
+            },
+            {
+              "key": "TriggerInterval",
+              "label": "Shot interval"
+            },
+            {
+              "key": "TriggerDistance",
+              "label": "Max distance"
+            }
+          ]
+        },
+        {
+          "id": "aim",
+          "title": "Trigger Aim",
+          "controls": [
+            {
+              "key": "TriggerAim",
+              "label": "Enable Trigger Aim"
+            },
+            {
+              "key": "TriggerAimKey",
+              "label": "Aim key"
+            },
+            {
+              "key": "TriggerAimRecoil",
+              "label": "Compensate recoil"
+            },
+            {
+              "key": "TriggerFov",
+              "label": "FOV"
+            },
+            {
+              "key": "TriggerSmooth",
+              "label": "Smoothing"
+            },
+            {
+              "key": "TriggerHitbox",
+              "label": "Hitbox"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radar",
+      "title": "Radar",
+      "tabs": [
+        {
+          "id": "local",
+          "title": "Local",
+          "controls": [
+            {
+              "key": "Radar",
+              "label": "Show radar"
+            },
+            {
+              "key": "RadarOutlines",
+              "label": "Guides & outlines"
+            },
+            {
+              "key": "RadarDots",
+              "label": "Player dots"
+            },
+            {
+              "key": "RadarHudPosition",
+              "label": "Align with HUD"
+            },
+            {
+              "key": "RadarWeapons",
+              "label": "Dropped weapons"
+            },
+            {
+              "key": "RadarGrenades",
+              "label": "Dropped grenades"
+            }
+          ]
+        },
+        {
+          "id": "position",
+          "title": "Position",
+          "controls": [
+            {
+              "key": "RadarSize",
+              "label": "Size"
+            },
+            {
+              "key": "RadarRange",
+              "label": "Range"
+            },
+            {
+              "key": "RadarOpacity",
+              "label": "Opacity"
+            },
+            {
+              "key": "RadarX",
+              "label": "Horizontal"
+            },
+            {
+              "key": "RadarY",
+              "label": "Vertical"
+            }
+          ]
+        },
+        {
+          "id": "web",
+          "title": "Sharing",
+          "controls": []
+        }
+      ]
+    },
+    {
+      "id": "world",
+      "title": "World",
+      "tabs": [
+        {
+          "id": "items",
+          "title": "Items",
+          "controls": [
+            {
+              "key": "WorldWeapons",
+              "label": "Weapons"
+            },
+            {
+              "key": "WorldItems",
+              "label": "Other items"
+            },
+            {
+              "key": "WorldGrenades",
+              "label": "Grenades"
+            },
+            {
+              "key": "WorldFire",
+              "label": "Molotov fire"
+            },
+            {
+              "key": "WorldColor",
+              "label": "Color"
+            }
+          ]
+        },
+        {
+          "id": "bomb",
+          "title": "Bomb",
+          "controls": [
+            {
+              "key": "Bomb",
+              "label": "Location & timer"
+            },
+            {
+              "key": "BombColor",
+              "label": "Color"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grenades",
+      "title": "Grenades",
+      "tabs": [
+        {
+          "id": "general",
+          "title": "Lineups",
+          "controls": [
+            {
+              "key": "GrenadeHelper",
+              "label": "Show lineups"
+            },
+            {
+              "key": "Map",
+              "label": "Map"
+            },
+            {
+              "key": "GrenadeFilter",
+              "label": "Type"
+            },
+            {
+              "key": "GrenadeDistance",
+              "label": "Max distance"
+            },
+            {
+              "key": "GrenadeColor",
+              "label": "Color"
+            }
+          ]
+        },
+        {
+          "id": "align",
+          "title": "Alignment",
+          "controls": [
+            {
+              "key": "GrenadeAlign",
+              "label": "Align aim"
+            },
+            {
+              "key": "GrenadeKey",
+              "label": "Key"
+            }
+          ]
+        },
+        {
+          "id": "library",
+          "title": "Library",
+          "controls": []
+        }
+      ]
+    },
+    {
+      "id": "skins",
+      "title": "Skins",
+      "tabs": [
+        {
+          "id": "weapons",
+          "title": "Weapons",
+          "controls": []
+        },
+        {
+          "id": "knives",
+          "title": "Knives",
+          "controls": []
+        },
+        {
+          "id": "gloves",
+          "title": "Gloves",
+          "controls": []
+        }
+      ]
+    },
+    {
+      "id": "misc",
+      "title": "Misc",
+      "tabs": [
+        {
+          "id": "hud",
+          "title": "HUD",
+          "controls": [
+            {
+              "key": "Status",
+              "label": "Status watermark"
+            },
+            {
+              "key": "DetailedStatus",
+              "label": "FPS & timings"
+            },
+            {
+              "key": "Spectators",
+              "label": "Spectator list"
+            },
+            {
+              "key": "VerboseSpectators",
+              "label": "Spectator details"
+            },
+            {
+              "key": "RecoilCrosshair",
+              "label": "Recoil crosshair"
+            }
+          ]
+        },
+        {
+          "id": "hits",
+          "title": "Hits",
+          "controls": [
+            {
+              "key": "Hitmarker",
+              "label": "Hitmarker"
+            },
+            {
+              "key": "HitSound",
+              "label": "Hit sound"
+            },
+            {
+              "key": "HitVolume",
+              "label": "Volume"
+            },
+            {
+              "key": "HitSoundType",
+              "label": "Sound"
+            }
+          ]
+        },
+        {
+          "id": "camera",
+          "title": "Camera",
+          "controls": [
+            {
+              "key": "ChangeFov",
+              "label": "Custom camera FOV"
+            },
+            {
+              "key": "GameFov",
+              "label": "Camera FOV"
+            }
+          ]
+        },
+        {
+          "id": "movement",
+          "title": "Movement",
+          "controls": [
+            {
+              "key": "BunnyHop",
+              "label": "Bunny hop"
+            },
+            {
+              "key": "AutoStrafe",
+              "label": "Mouse-steered auto-strafe"
+            },
+            {
+              "key": "MovementKey",
+              "label": "Hold movement assist"
+            },
+            {
+              "key": "JumpKey",
+              "label": "CS2 jump key"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "title": "System",
+      "tabs": [
+        {
+          "id": "performance",
+          "title": "Performance",
+          "controls": [
+            {
+              "key": "Frames",
+              "label": "Overlay limit"
+            },
+            {
+              "key": "VSync",
+              "label": "Sync with DWM"
+            },
+            {
+              "key": "ChamsSupersampling",
+              "label": "Smoother chams edges"
+            }
+          ]
+        },
+        {
+          "id": "keys",
+          "title": "Shortcuts",
+          "controls": [
+            {
+              "key": "MenuKey",
+              "label": "Menu"
+            },
+            {
+              "key": "ToggleKey",
+              "label": "Visuals"
+            }
+          ]
+        },
+        {
+          "id": "updates",
+          "title": "Updates",
+          "controls": []
+        },
+        {
+          "id": "capture",
+          "title": "Streamproof",
+          "controls": [
+            {
+              "key": "ExcludeFromCapture",
+              "label": "Exclude from Streamproof"
+            },
+            {
+              "key": "HideOnCaptureFailure",
+              "label": "Hide overlay if protection fails"
+            },
+            {
+              "key": "PrivacyKey",
+              "label": "Hold to hide overlay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "configs",
+      "title": "CFG",
+      "tabs": [
+        {
+          "id": "files",
+          "title": "Saved configs",
+          "controls": []
+        }
+      ]
+    }
+  ],
+  "links": {
+    "website": "https://nexo-two-beige.vercel.app/",
+    "discord": "https://discord.gg/7q9NAfYKTJ"
+  }
+}
