@@ -1,3 +1,5 @@
+Use SFA : https://sforall.vercel.app/
+
 <img width="1040" height="680" alt="radar" src="https://github.com/user-attachments/assets/e0ba3af2-4599-412d-ac70-cb4473fc1c80" />
 <img width="1040" height="680" alt="trigger" src="https://github.com/user-attachments/assets/18fb31b5-223c-429a-a6bf-480cd4b8ab41" />
 <img width="1040" height="680" alt="aimbot" src="https://github.com/user-attachments/assets/629ec119-8790-406b-ae45-8b399c8ab904" />
